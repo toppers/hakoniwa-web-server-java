@@ -10,19 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import com.baitando.openapi.samples.gen.springbootserver.model.ControlRequestDto;
 
-import com.baitando.openapi.samples.gen.springbootserver.api.ControlApi;
-import com.baitando.openapi.samples.gen.springbootserver.api.StatusApi;
-import com.baitando.openapi.samples.gen.springbootserver.api.AssetsApi;
 import org.springframework.web.context.request.NativeWebRequest;
 import com.baitando.openapi.samples.gen.springbootserver.model.SimulationStatusDto;
-import com.baitando.openapi.samples.gen.springbootserver.model.ErrorDto;
+import com.baitando.openapi.samples.gen.springbootserver.api.ApiApi;
 
 import java.util.Optional;
 
 import static hakoniwa.HakoniwaCore.ErrorCode.ERROR_CODE_OK;
 
 @RestController
-public class HakoniwaServer implements ControlApi, StatusApi, AssetsApi {
+public class HakoniwaServer implements ApiApi {
     private static int port;
     private static String ipaddr;
 
@@ -51,14 +48,10 @@ public class HakoniwaServer implements ControlApi, StatusApi, AssetsApi {
     }
 
     @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return ControlApi.super.getRequest();
-    }
-
-    @Override
     public ResponseEntity<Void> controlSimulation(ControlRequestDto controlRequestDto) {
         HakoniwaCore.NormalReply reply = null;
         String type = controlRequestDto.getControlType().getValue();
+        System.out.println("controlSimulation:" + type);
         if ("start".equals(type)) {
             reply = stub.startSimulation(emptyRequest);
         }

@@ -1,11 +1,11 @@
-openapi: "3.0.2"
+openapi: "3.0.0"
 info:
   title: Hakoniwa WebAPI
   version: "1.0"
 servers:
   - url: https://hakoniwa.server.api/v1
 paths:
-  /control:
+  /api/control:
     put:
       description: hakoniwa simulation control.
       operationId: ControlSimulation
@@ -23,7 +23,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /assets:
+  /api/assets:
     get:
       operationId: GetAssetList
       responses:
@@ -39,7 +39,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /status:
+  /api/status:
     get:
       operationId: GetSimStatus
       responses:
